@@ -2,6 +2,8 @@ package com.example.springyapi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,8 +11,9 @@ public class AreaConverter {
 
     private static final Logger log = LoggerFactory.getLogger(AreaConverter.class);
     private JSONArray filteredUsers = new JSONArray();
+    private JSONParser parser = new JSONParser();
 
-    public JSONArray cityRadiusCalculator(String users) {
+    public JSONArray cityRadiusCalculator(String users) throws ParseException {
 
         JSONArray fullUserJSON = new JSONArray(users);
 
@@ -30,17 +33,13 @@ public class AreaConverter {
                 log.error("Invalid JSON format.");
             }
         }
-
         return filteredUsers;
-
     }
 
-    void calculateDistance(User user) {
+    private void calculateDistance(User user) {
         double distance = Haversine.haversine(user.getLatitude(), user.getLongitude());
 
         if (distance <= 50) {
-            log.info(user.getFirstname() + " Distance: " + distance);
-
             filteredUsers.put(user);
         }
     }

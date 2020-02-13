@@ -5,11 +5,11 @@ public class Haversine {
     //  Average radius of the Earth in miles.
     public static final double RADIUS = 3958.8;
 
+    // London's longitude and latitude.
     public static final double LONDON_LAT = 51.5074;
     public static final double LONDON_LONG = 0.1278;
 
-
-    //  A Java implementation of the Haversine formula for calculating distance.
+    //  A Java implementation of the Haversine formula for calculating distance accross a sphere.
     public static double haversine(double latitude2, double longitude2) {
 
         double latitude1 = LONDON_LAT;
@@ -20,9 +20,8 @@ public class Haversine {
         latitude1 = Math.toRadians(latitude1);
         latitude2 = Math.toRadians(latitude2);
 
-        double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(latitude1) * Math.cos(latitude2);
+        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(latitude1) * Math.cos(latitude2);
         double c = 2 * Math.asin(Math.sqrt(a));
         return RADIUS * c;
     }
-
 }
